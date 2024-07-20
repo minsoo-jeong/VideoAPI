@@ -1,0 +1,11 @@
+h5py
+faiss-gpu
+tritonclient[all]
+albumentations
+fastapi
+ultralytics
+decord
+redis
+pydantic-settings
+onnx
+onnxruntime

@@ -1,0 +1,10 @@
+fastapi
+tritonclient[all]
+albumentations
+h5py
+redis
+faiss-gpu
+pydantic
+decord
+ultralytics
+pydantic-settings

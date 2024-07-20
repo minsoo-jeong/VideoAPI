@@ -1,0 +1,48 @@
+version: '2.3'
+
+services:
+  main:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      PYTHONPATH: "/workspace"
+    runtime: nvidia
+    restart: always
+    tty: true
+    stdin_open: true
+    ipc: host
+    ports:
+      - "55553:22"  # for debug
+      - "50000:8888"  # for debug
+    expose:
+      - 8000
+    volumes:
+      - "${PWD}/backend:/workspace"
+
+  triton:
+    build:
+      context: ./triton/
+      dockerfile: Dockerfile
+    runtime: nvidia
+    environment:
+      CUDA_VISIBLE_DEVICES: 0,1
+    expose:
+      - 8000
+      - 8001
+      - 8002
+    volumes:
+      - "${PWD}/triton:/workspace"
+      - "${PWD}/triton/model_repository:/models"
+
+  redis:
+    image: redis:alpine
+    expose:
+      - 6379
+
+
+#  nginx:
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile
+
