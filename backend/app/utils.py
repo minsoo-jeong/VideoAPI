@@ -40,3 +40,28 @@ def elapsed(func):
         return result
 
     return wrapper
+
+
+def to_native_type(value):
+    if isinstance(value, dict):
+        return {k: to_native_type(v) for k, v in value.items()}
+    elif isinstance(value, list):
+        return [to_native_type(item) for item in value]
+    elif isinstance(value, np.ndarray):
+        return value.tolist()
+    elif isinstance(value, (np.int32, np.int64, np.float32, np.float64)):
+        return value.item()
+    elif isinstance(value, (int, float, str, bool, type(None))):
+        return value
+    else:
+        # 추가적인 변환이 필요할 경우 여기에 작성
+        return str(value)  # 기본적으로 문자열로 변환
+
+
+def convert_to_native_types(data):
+    if isinstance(data, dict):
+        return {k: to_native_type(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [to_native_type(item) for item in data]
+    else:
+        raise ValueError("Input must be a dictionary or a list")

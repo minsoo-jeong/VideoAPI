@@ -9,3 +9,4 @@ redis
 pydantic-settings
 onnx
 onnxruntime
+celery

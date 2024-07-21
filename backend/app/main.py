@@ -3,9 +3,6 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import redis
 
-from tasks.dummy import Dummy
-from tasks.video_review import Review
-
 from endpoints import router
 from settings import settings
 

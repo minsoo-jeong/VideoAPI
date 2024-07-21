@@ -19,3 +19,7 @@ RUN echo 'root:root' |chpasswd
 WORKDIR /workspace
 ADD . .
 
+
+RUN pip install -r requirements.txt
+
+

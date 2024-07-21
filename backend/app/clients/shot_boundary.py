@@ -40,7 +40,7 @@ class SBDClient(object):
             preds.append(self.predict(sequence))
 
         preds = np.concatenate(preds)[:len(video)]
-        scenes = self.predictions_to_scenes(preds)
+        scenes = self.predictions_to_scenes(preds).tolist()
         return scenes
 
     def predict(self, sequence):

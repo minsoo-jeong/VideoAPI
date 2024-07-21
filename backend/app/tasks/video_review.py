@@ -1,3 +1,4 @@
+import traceback
 from collections import defaultdict
 import time
 import json
@@ -28,7 +29,7 @@ class Review:
             print(video_path)
             video = decord.VideoReader(video_path, num_threads=0, ctx=decord.cpu(0))
             shots = self.detect_shot_boundaries(video_path) if shot_path is None else np.load(shot_path)
-            print(shots)
+
             # shots = [[0, len(video) // 8],
             #          [len(video) // 8 + 1, 2 * len(video) // 8], ]
 
@@ -46,11 +47,17 @@ class Review:
                                                 shot_end=int(end),
                                                 results=_results))
 
-            print(results)
+                # print(idx, results)
+
+            results = dict(results)
             if callback:
-                callback(dict(results))
+                callback(results)
+            else:
+                return results
+
 
         except Exception as e:
+            traceback.print_exc()
             raise e
 
     @print_func
