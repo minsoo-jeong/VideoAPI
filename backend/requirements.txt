@@ -8,3 +8,4 @@ pydantic
 decord
 ultralytics
 pydantic-settings
+celery

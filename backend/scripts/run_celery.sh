@@ -7,9 +7,8 @@ parent_dir="$(dirname "$script_dir")"
 cd "$parent_dir" || { echo "Failed to change directory to $parent_dir"; exit 1; }
 
 
-#celery -A app.celery_app flower &
-celery -A app.celery_app worker -l info -c 4
-
+celery -A app.celery_app flower &
+celery -A app.celery_app worker -l info -c 4 &
 
 ## 로그 디렉토리 설정
 #log_dir="$parent_dir/logs"

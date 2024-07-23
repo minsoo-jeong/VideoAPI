@@ -5,18 +5,20 @@ services:
     container_name: enm-broady-dev
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
     environment:
       CUDA_VISIBLE_DEVICES: 0,1
       PYTHONPATH: "/workspace:/workspace/backend"
+      C_FORCE_ROOT: true
     runtime: nvidia
     restart: always
     tty: true
     stdin_open: true
     ipc: host
     ports:
-      - "55554:22"
+      - "55554:22"  # for debug
       - "50001:8888"  # for debug
+      - "55555:5555"  # for debug
     expose:
       - 8000
     volumes:
@@ -42,6 +44,22 @@ services:
           nocopy: true
       - "${PWD}:/workspace"
       - "/media/mmlab/hdd:/hdd"
+
+
+  triton-dev:
+    build:
+      context: ./triton/
+      dockerfile: Dockerfile
+    runtime: nvidia
+    environment:
+      CUDA_VISIBLE_DEVICES: 0,1
+    expose:
+      - 8000
+      - 8001
+      - 8002
+    volumes:
+      - "${PWD}/triton:/workspace"
+      - "${PWD}/triton/model_repository:/models"
 
 
 volumes:

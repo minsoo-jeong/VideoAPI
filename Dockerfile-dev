@@ -15,11 +15,11 @@ RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_confi
 
 RUN echo 'root:root' |chpasswd
 
-
 WORKDIR /workspace
 ADD . .
 
 
-RUN pip install -r requirements.txt
+RUN pip install -r backend/requirements.txt
 
-
+RUN apt install -y redis-server && \
+    pip install -r requirements-dev.txt

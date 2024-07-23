@@ -2,6 +2,7 @@ version: '2.3'
 
 services:
   main:
+    &main
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -19,6 +20,16 @@ services:
       - 8000
     volumes:
       - "${PWD}/backend:/workspace"
+    depends_on:
+      - redis
+
+  celery:
+    <<: *main
+    environment:
+      PYTHONPATH: "/workspace"
+      C_FORCE_ROOT: true
+    ports:
+      - "55555:5555"
 
   triton:
     build:

@@ -1,0 +1,19 @@
+# backend
+fastapi
+tritonclient[all]
+albumentations
+h5py
+redis
+faiss-gpu
+pydantic
+decord
+ultralytics
+pydantic-settings
+celery
+
+# celery-worker
+flower
+
+# etc
+onnx
+onnxruntime
