@@ -23,6 +23,7 @@ helmet_client = HelmetClient()
 seatbelt_client = SeatbeltClient()
 
 
+
 @celery_app.task(bind=True, max_retries=0)
 def video_review(self, video_path):
     try:
@@ -36,8 +37,8 @@ def video_review(self, video_path):
         for idx, (start, end) in enumerate(shots.result['result']):
             # analyze shot
 
-            shot_tasks.append(detect_helmets_task.s(video_path, start, end))
-            shot_tasks.append(detect_seatbelts_task.s(video_path, start, end))
+            shot_tasks.append(detect_helmets_task.si(video_path, start, end))
+            shot_tasks.append(detect_seatbelts_task.si(video_path, start, end))
 
         jobs = chord(shot_tasks)(gather_results.s(key=self.request.id, data=dict(shot=shots.result['result'])))
         print(jobs)

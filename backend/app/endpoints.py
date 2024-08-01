@@ -17,10 +17,20 @@ from app.tasks.video_review_tasks import video_review
 
 router = APIRouter()
 
+# For debug
 TEST_VIDEO_PATH = '/mldisk/nfs_shared_/ms/enm-data/soucreData/짧은 영상/한국/HOME ep6 no smoking 단편영화 홈 6번째 에피소드_1080p.mp4'
-
-
 # TEST_VIDEO_PATH = '/mldisk/nfs_shared_/ms/enm-data/soucreData/20240703/한국/삼식이 삼촌 01화 1080p.KORSUB.WEBRip.H264.AAC.mp4'
+
+
+from pathlib import Path
+
+
+@router.get('/videos')
+def get_video_list():
+    root = Path('/mldisk/nfs_shared_/ms/enm-data/soucreData/')
+    videos = [str(v) for v in root.rglob('*') if v.is_file()]
+
+    return videos
 
 
 @router.post("/dummy")
