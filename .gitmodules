@@ -1,0 +1,3 @@
+[submodule "model-repos/TransNetV2"]
+	path = model-repos/TransNetV2
+	url = https://github.com/minsoo-jeong/TransNetV2.git
